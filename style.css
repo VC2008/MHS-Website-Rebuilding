@@ -1,2 +1,183 @@
-  /*proof that new branch works 
-  
+/* Root and Global Styles */
+:root {
+  --primary-color: #1e3a5f;
+  --secondary-color: #f59e0b;
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+  --light-bg: #f9fafb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* Navbar Styling */
+.navbar {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #2d5a8c 100%) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white !important;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 500;
+  margin: 0 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: var(--secondary-color) !important;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+/* Main Container */
+main {
+  padding: 3rem 0;
+  min-height: calc(100vh - 56px);
+}
+
+.container {
+  max-width: 1200px;
+}
+
+/* Hero Section */
+.row:first-of-type {
+  align-items: center;
+  margin-bottom: 4rem;
+  padding: 2rem;
+  background-color: var(--light-bg);
+  border-radius: 10px;
+}
+
+.row:first-of-type .col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row:first-of-type img {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+  margin: 1rem;
+}
+
+.row:first-of-type h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+/* Cards Section */
+.row:nth-of-type(2) {
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.card {
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  width: 100% !important;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #2d5a8c 100%);
+  color: white;
+  font-weight: 600;
+  border: none !important;
+}
+
+.card-body {
+  padding: 1.5rem;
+  background-color: #ffffff;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.btn-warning {
+  background-color: var(--secondary-color) !important;
+  border: none !important;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.btn-warning:hover {
+  background-color: #d97706 !important;
+  transform: translateX(2px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .row:first-of-type {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .row:first-of-type h2 {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+
+  .card {
+    width: 100% !important;
+    margin-bottom: 1.5rem;
+  }
+
+  .navbar-nav {
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .row:first-of-type h2 {
+    font-size: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .btn-warning {
+    width: 100%;
+  }
+}
