@@ -67,23 +67,13 @@
             <div class="card calendar-card">
               <div class="card-header calendar-header">
                 <div class="d-flex align-items-center justify-content-between">
-                  <h2 id="monthLabel" class="mb-0">Month</h2>
-                  <div class="text-muted" id="yearLabel">2026</div>
+                  <h2 class="mb-0">Calendar — <span id="yearLabel">2026</span></h2>
+                  <div class="text-muted small" id="monthNavInfo">All months</div>
                 </div>
               </div>
               <div class="card-body p-0">
-                <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Calendar">
-                  <!-- Weekdays header -->
-                  <div class="weekdays" role="row">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
-                  </div>
-                  <!-- Days will be injected here by script.js -->
+                <div id="monthsStrip" class="months-strip" role="region" aria-label="All months">
+                  <!-- 12 month cards injected here by script.js -->
                 </div>
               </div>
             </div>

@@ -6,11 +6,14 @@ Copy
   --primary-color: #0f172a;
   --secondary-color: #2563eb;
   --accent-color: #f59e0b;
+  --accent-2: #06b6d4;
   --success-color: #10b981;
   --text-dark: #1e293b;
   --text-light: #64748b;
   --light-bg: #f8fafc;
   --border-color: #e2e8f0;
+  --card-bg: #ffffff;
+  --muted: #6b7280;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
@@ -41,6 +44,35 @@ body {
   box-shadow: var(--shadow-md);
   padding: 1rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Center navbar brand and links */
+.navbar .container-fluid {
+  position: relative;
+  justify-content: center;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbar-toggler {
+  position: absolute;
+  right: 1rem;
+}
+
+@media (min-width: 992px) {
+  .navbar-collapse {
+    justify-content: center;
+  }
+
+  .navbar-nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
 }
 
 .navbar-brand {
@@ -273,6 +305,198 @@ main {
     min-height: 76px;
     padding: 0.5rem;
   }
+}
+
+/* Enhanced visual polish */
+html, body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: linear-gradient(180deg, #f4f7fb 0%, #eef6ff 100%);
+}
+
+.container {
+  max-width: 1120px;
+}
+
+.calendar-card {
+  border-radius: 14px;
+  background: var(--card-bg);
+  box-shadow: 0 8px 30px rgba(16,24,40,0.06);
+}
+
+.calendar-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.calendar-grid {
+  padding: 0.75rem 1rem 1rem;
+}
+
+/* Months strip (wide sliding cards) */
+.months-strip {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.months-strip::-webkit-scrollbar { height: 10px; }
+.months-strip::-webkit-scrollbar-thumb { background: rgba(16,24,40,0.08); border-radius: 10px; }
+
+.month-card {
+  flex: 0 0 820px;
+  min-width: 320px;
+  width: 820px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 12px 28px rgba(2,6,23,0.06);
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.month-card .month-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.month-card .month-title { font-weight: 800; font-size: 1.1rem; color: var(--primary-color); }
+
+.month-card .days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.6rem;
+  padding: 1rem;
+}
+
+.month-card .weekdays { padding: 0 1rem 0 1rem; display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.6rem; }
+.month-card .weekdays div { text-align: center; color: var(--muted); font-weight: 700; padding: 0.25rem 0; }
+
+.month-card .day { min-height: 88px; padding: 0.6rem; }
+
+@media (max-width: 1000px) {
+  .month-card { flex: 0 0 90vw; width: 90vw; }
+}
+
+@media (max-width: 576px) {
+  .month-card { flex: 0 0 96vw; width: 96vw; }
+  .day { min-height: 64px; }
+}
+
+.calendar-grid .weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  padding: 0.5rem 0.25rem;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.calendar-grid .weekdays div {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.25rem;
+}
+
+.calendar-grid .days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.75rem;
+  padding: 0.5rem 0.25rem 1rem;
+}
+
+.day {
+  min-height: 92px;
+  background: linear-gradient(180deg, #fff 0%, #fbfdff 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.day:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(16,24,40,0.08);
+  border-color: rgba(37,99,235,0.12);
+}
+
+.day .date {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.day.other-month {
+  opacity: 0.62;
+}
+
+.day.has-event {
+  border-left: 4px solid var(--accent-color);
+}
+
+.day .event {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.event-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.events-card .card-body > div {
+  padding: 0.5rem 0.25rem;
+  border-left: 3px solid rgba(37,99,235,0.06);
+}
+
+.events-card .card-header, .quick-info .card-header {
+  background: transparent;
+  font-weight: 700;
+}
+
+.quick-info .card-body {
+  color: var(--muted);
+}
+
+/* Button polish */
+.calendar-nav .btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.btn-outline-secondary {
+  border-radius: 10px;
+  padding: 0.5rem 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .calendar-grid .days { gap: 0.5rem; }
+  .day { min-height: 72px; padding: 0.45rem; }
+  .calendar-header h2 { font-size: 1.05rem; }
 }
 
 .card-title {
