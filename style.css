@@ -1,3 +1,6 @@
+
+Copy
+
 /* Root and Global Styles */
 :root {
   --primary-color: #0f172a;
@@ -134,16 +137,20 @@ main {
   letter-spacing: -1px;
 }
 
-/* Cards Section */
-.row:nth-of-type(2) {
+/* Cards Section - Single Row Layout */
+.cards-row {
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   margin-top: 2rem;
 }
 
-.col-lg-4,
-.col-md-4,
-.col-sm-12 {
+.cards-row .col-lg-4,
+.cards-row .col-md-4,
+.cards-row .col-sm-12 {
   display: flex;
+  flex: 1 1 calc(33.333% - 1.5rem);
+  min-width: 280px;
 }
 
 .card {
@@ -227,6 +234,13 @@ main {
 }
 
 /* Responsive Adjustments */
+@media (max-width: 992px) {
+  .cards-row .col-lg-4,
+  .cards-row .col-md-4 {
+    flex: 1 1 calc(50% - 1rem);
+  }
+}
+
 @media (max-width: 768px) {
   .row:first-of-type {
     flex-direction: column;
@@ -243,9 +257,21 @@ main {
     text-align: center;
   }
 
+  .cards-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .cards-row .col-lg-4,
+  .cards-row .col-md-4,
+  .cards-row .col-sm-12 {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
   .card {
     width: 100% !important;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
   }
 
   .navbar-nav {
