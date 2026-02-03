@@ -2,7 +2,6 @@
 (function(){
   const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   const monthsStrip = document.getElementById('monthsStrip');
-  const userEventsEl = document.getElementById('userEvents');
   const yearLabel = document.getElementById('yearLabel');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
@@ -122,39 +121,6 @@
 
     // after inserting, ensure we can scroll to current month
     setTimeout(()=> scrollToMonth(now.getMonth()), 50);
-    renderUserEvents();
-  }
-
-  function renderUserEvents(){
-    userEventsEl.innerHTML = '';
-    if(!userEvents.length){ userEventsEl.innerHTML = '<p class="text-muted small">No events yet. Add one above!</p>'; return; }
-    
-    // Sort by date
-    const sorted = [...userEvents].sort((a,b) => new Date(a.date) - new Date(b.date));
-    
-    sorted.forEach((ev, idx)=>{
-      const div = document.createElement('div'); div.className = 'mb-2 d-flex justify-content-between align-items-start';
-      const eventContent = document.createElement('div');
-      eventContent.innerHTML = `<strong>${ev.name}</strong><div class="text-muted small">${new Date(ev.date).toDateString()}</div>`;
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'btn btn-sm btn-outline-danger';
-      deleteBtn.textContent = '×';
-      deleteBtn.style.padding = '0 5px';
-      deleteBtn.type = 'button';
-      deleteBtn.title = 'Delete event';
-      deleteBtn.addEventListener('click', (e)=>{
-        e.preventDefault();
-        if(confirm(`Delete event "${ev.name}"?`)){
-          userEvents.splice(idx, 1);
-          localStorage.setItem('userEvents', JSON.stringify(userEvents));
-          renderUserEvents();
-          renderYear(activeYear);
-        }
-      });
-      div.appendChild(eventContent);
-      div.appendChild(deleteBtn);
-      userEventsEl.appendChild(div);
-    });
   }
 
   function scrollToMonth(index){
@@ -199,7 +165,6 @@
       localStorage.setItem('userEvents', JSON.stringify(userEvents));
       eventNameInput.value = '';
       eventDateInput.value = '';
-      renderUserEvents();
       renderYear(activeYear);
     }
   });
@@ -207,7 +172,6 @@
   // initial
   document.addEventListener('DOMContentLoaded', ()=>{
     renderYear(activeYear);
-    renderUserEvents();
   });
 
 })();
