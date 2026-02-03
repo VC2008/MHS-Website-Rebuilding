@@ -2,22 +2,21 @@
 (function(){
   const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   const monthsStrip = document.getElementById('monthsStrip');
-  const upcomingEl = document.getElementById('upcomingEvents');
+  const userEventsEl = document.getElementById('userEvents');
   const yearLabel = document.getElementById('yearLabel');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const todayBtn = document.getElementById('todayBtn');
+  const addEventForm = document.getElementById('addEventForm');
+  const eventNameInput = document.getElementById('eventName');
+  const eventDateInput = document.getElementById('eventDate');
 
   const now = new Date();
   let activeYear = now.getFullYear();
+  
+  // Initialize with empty array and load from localStorage
+  let userEvents = JSON.parse(localStorage.getItem('userEvents')) || [];
 
-  // sample events across months (for demo)
-  const sampleEvents = [
-    { date: new Date(activeYear, 0, 5), title: 'New Term Begins' },
-    { date: new Date(activeYear, 1, 14), title: 'Valentine Event' },
-    { date: new Date(activeYear, 8, 22), title: 'Parent-Teacher Conf.' },
-    { date: new Date(activeYear, 10, 25), title: 'Thanksgiving Break' },
-  ];
 
   function daysInMonth(y,m){ return new Date(y, m+1, 0).getDate(); }
   function isLeapYear(y){ return (y%4===0 && y%100!==0) || (y%400===0); }
@@ -81,12 +80,32 @@
       el.classList.add('today');
     }
 
-    // show sample events if any
-    const ev = sampleEvents.find(e=> isSameDay(e.date, dateObj));
+    // show user events if any
+    const ev = userEvents.find(e=> isSameDay(new Date(e.date), dateObj));
     if(ev){
       el.classList.add('has-event');
       const p = document.createElement('div'); p.className = 'event';
-      p.innerHTML = `<span class="event-dot" style="background:${'#f59e0b'}"></span>${ev.title}`;
+      const eventText = document.createElement('span');
+      eventText.innerHTML = `<span class="event-dot" style="background:${'#f59e0b'}"></span>${ev.name}`;
+      
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'event-delete-btn';
+      deleteBtn.textContent = '×';
+      deleteBtn.title = 'Delete event';
+      deleteBtn.type = 'button';
+      deleteBtn.style.cssText = 'background:none;border:none;color:#dc2626;cursor:pointer;font-size:18px;padding:0;margin-left:4px;font-weight:bold;';
+      deleteBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        if(confirm(`Delete event "${ev.name}"?`)){
+          userEvents = userEvents.filter(event => event.name !== ev.name || event.date !== ev.date);
+          localStorage.setItem('userEvents', JSON.stringify(userEvents));
+          renderUserEvents();
+          renderYear(activeYear);
+        }
+      });
+      
+      p.appendChild(eventText);
+      p.appendChild(deleteBtn);
       el.appendChild(p);
     }
 
@@ -103,17 +122,38 @@
 
     // after inserting, ensure we can scroll to current month
     setTimeout(()=> scrollToMonth(now.getMonth()), 50);
-    renderUpcoming(year);
+    renderUserEvents();
   }
 
-  function renderUpcoming(year){
-    upcomingEl.innerHTML = '';
-    const upcoming = sampleEvents.filter(e => e.date.getFullYear() === year).slice(0,6);
-    if(!upcoming.length){ upcomingEl.innerHTML = '<p class="text-muted">No upcoming events.</p>'; return; }
-    upcoming.forEach(ev=>{
-      const div = document.createElement('div'); div.className = 'mb-2';
-      div.innerHTML = `<strong>${ev.title}</strong><div class="text-muted small">${ev.date.toDateString()}</div>`;
-      upcomingEl.appendChild(div);
+  function renderUserEvents(){
+    userEventsEl.innerHTML = '';
+    if(!userEvents.length){ userEventsEl.innerHTML = '<p class="text-muted small">No events yet. Add one above!</p>'; return; }
+    
+    // Sort by date
+    const sorted = [...userEvents].sort((a,b) => new Date(a.date) - new Date(b.date));
+    
+    sorted.forEach((ev, idx)=>{
+      const div = document.createElement('div'); div.className = 'mb-2 d-flex justify-content-between align-items-start';
+      const eventContent = document.createElement('div');
+      eventContent.innerHTML = `<strong>${ev.name}</strong><div class="text-muted small">${new Date(ev.date).toDateString()}</div>`;
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'btn btn-sm btn-outline-danger';
+      deleteBtn.textContent = '×';
+      deleteBtn.style.padding = '0 5px';
+      deleteBtn.type = 'button';
+      deleteBtn.title = 'Delete event';
+      deleteBtn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        if(confirm(`Delete event "${ev.name}"?`)){
+          userEvents.splice(idx, 1);
+          localStorage.setItem('userEvents', JSON.stringify(userEvents));
+          renderUserEvents();
+          renderYear(activeYear);
+        }
+      });
+      div.appendChild(eventContent);
+      div.appendChild(deleteBtn);
+      userEventsEl.appendChild(div);
     });
   }
 
@@ -144,8 +184,30 @@
   });
 
   todayBtn.addEventListener('click', ()=>{ renderYear(now.getFullYear()); scrollToMonth(now.getMonth()); });
+  
+  // Handle add event form submission
+  addEventForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const eventName = eventNameInput.value.trim();
+    const eventDate = eventDateInput.value;
+    
+    if(eventName && eventDate){
+      userEvents.push({
+        name: eventName,
+        date: eventDate
+      });
+      localStorage.setItem('userEvents', JSON.stringify(userEvents));
+      eventNameInput.value = '';
+      eventDateInput.value = '';
+      renderUserEvents();
+      renderYear(activeYear);
+    }
+  });
 
   // initial
-  document.addEventListener('DOMContentLoaded', ()=> renderYear(activeYear));
+  document.addEventListener('DOMContentLoaded', ()=>{
+    renderYear(activeYear);
+    renderUserEvents();
+  });
 
 })();

@@ -81,9 +81,19 @@
 
           <div class="col-lg-4">
             <div class="card events-card">
-              <div class="card-header">Upcoming Events</div>
-              <div class="card-body" id="upcomingEvents">
-                <p class="text-muted">Loading events…</p>
+              <div class="card-header">Add Custom Event</div>
+              <div class="card-body">
+                <form id="addEventForm">
+                  <div class="mb-3">
+                    <label for="eventName" class="form-label">Event Name</label>
+                    <input type="text" class="form-control" id="eventName" placeholder="Enter event name" required />
+                  </div>
+                  <div class="mb-3">
+                    <label for="eventDate" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="eventDate" required />
+                  </div>
+                  <button type="submit" class="btn btn-primary w-100">Add Event</button>
+                </form>
               </div>
             </div>
         </div>

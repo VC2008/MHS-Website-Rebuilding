@@ -31,7 +31,7 @@ html {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  background-color: var(--light-bg);
+  background-color: #1143b2;
   color: var(--text-dark);
   line-height: 1.6;
   font-size: 1rem;
@@ -78,7 +78,7 @@ body {
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: 700;
-  color: white !important;
+  color: rgba(0, 68, 255, 0.8) !important;
   letter-spacing: -0.5px;
   transition: opacity 0.3s ease;
 }
@@ -88,7 +88,7 @@ body {
 }
 
 .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.8) !important;
+  color: rgba(0, 68, 255, 0.8) !important;
   font-weight: 500;
   margin: 0 0.75rem;
   padding: 0.5rem 0 !important;
