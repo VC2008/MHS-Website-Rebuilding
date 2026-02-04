@@ -176,4 +176,42 @@
 
 })();
 
-//Clubs page vue content
+//Clubs page content
+   fetch('Clubs.json')
+        .then(response => response.json())
+        .then(clubs => {
+            const container = document.getElementById('clubsContainer');
+            const validClubs = clubs.filter(club => club.title && club.title.trim());
+            
+            if (validClubs.length === 0) {
+                container.innerHTML = '<div class="alert alert-info col-12">No clubs data available yet.</div>';
+                return;
+            }
+
+            validClubs.forEach(club => {
+                const clubCard = document.createElement('div');
+                clubCard.className = 'club-card';
+                
+                const imageUrl = club.image && club.image[0] ? club.image[0] : 'IMGS/placeholder.png';
+                
+                clubCard.innerHTML = `
+                    <div class="club-image-wrapper">
+                        <img src="${imageUrl}" alt="${club.title}" class="club-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22200%22%3E%3Crect fill=%22%23e2e8f0%22 width=%22300%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2216%22 fill=%22%2394a3b8%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Image%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <div class="club-content">
+                        <h3 class="club-title">${club.title}</h3>
+                        <p class="club-description">${club.description || 'No description available'}</p>
+                        <div class="club-advisor">
+                            <span class="advisor-label">Advisor:</span>
+                            <span class="advisor-name">${club.Advisor || 'TBA'}</span>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(clubCard);
+            });
+        })
+        .catch(error => {
+            console.error('Error loading clubs:', error);
+            document.getElementById('clubsContainer').innerHTML = '<div class="alert alert-danger col-12">Unable to load clubs data.</div>';
+        });

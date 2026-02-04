@@ -1,0 +1,51 @@
+[
+{
+    "title": "Art Society Club",
+    "description": "A club for students interested in exploring various forms of art and creativity.",
+    "Advisor": "L Fraser",
+    "image": ["IMGS/Art Society.png"]
+},
+{
+    "title": "Asian Club",
+    "description": "create and represent a community of diverse students",
+    "Advisor": "Ms. Patel",
+    "image": ["IMGS/Asian Club.png"]
+},
+{
+    "title": "Connect for Cancer Club",
+    "description": "Placeholder",
+    "Advisor": "Emma Downs",
+    "image": ["IMGS/Connect for Cancer Club.png"]
+},
+{
+    "title": "Global Citizens Club",
+    "description": "Placeholder",
+    "Advisor": "Ms. Shaw",
+    "image": ["IMGS/Global Citizens Club.png"]
+},
+{
+    "title": "Habitat for Humanity Club",
+    "description": "Placeholder",
+    "Advisor": "",
+    "image": ["IMGS/Habitat for Humanity.png"]
+},
+{
+    "title": "Honor Society Club",
+    "description": "Placeholder",
+    "Advisor": "",
+    "image": ["IMGS/Honor Society Club.png"]   
+},
+{
+    "title": "",
+    "description": "",
+    "Advisor": "",
+    "image": [""]
+},
+{
+    "title": "",
+    "description": "",
+    "Advisor": "",
+    "image": [""]
+}
+
+]
