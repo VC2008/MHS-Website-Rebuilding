@@ -215,3 +215,4 @@
             console.error('Error loading clubs:', error);
             document.getElementById('clubsContainer').innerHTML = '<div class="alert alert-danger col-12">Unable to load clubs data.</div>';
         });
+        

@@ -26,26 +26,26 @@
 {
     "title": "Habitat for Humanity Club",
     "description": "Placeholder",
-    "Advisor": "",
+    "Advisor": "Mr. Morgan",
     "image": ["IMGS/Habitat for Humanity.png"]
 },
 {
     "title": "Honor Society Club",
-    "description": "Placeholder",
-    "Advisor": "",
+    "description": "Character, Scholarship, Leadership, Service",
+    "Advisor": "none",
     "image": ["IMGS/Honor Society Club.png"]   
 },
 {
-    "title": "",
-    "description": "",
-    "Advisor": "",
-    "image": [""]
+    "title": "LEO Club",
+    "description": "Provide high school students with volunteer opportunities to give back to our communities",
+    "Advisor": "none",
+    "image": ["IMGS/LEO club.png"]
 },
 {
-    "title": "",
-    "description": "",
-    "Advisor": "",
-    "image": [""]
+    "title": "Theater Society Club",
+    "description": "Various plays & musicals throughout the year",
+    "Advisor": "Jessica Fegeley",
+    "image": ["IMGS/Theater Society.png"]
 }
 
 ]
