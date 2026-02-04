@@ -175,3 +175,5 @@
   });
 
 })();
+
+//Clubs page vue content
